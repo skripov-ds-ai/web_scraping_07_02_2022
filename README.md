@@ -9,6 +9,9 @@
 
 Библиотека dotenv - [python-dotenv](https://pypi.org/project/python-dotenv/)
 
+### (Optional) Запуск сервера
+- `flask run`
+
 ### Необязательное
 - [pre-commit и git hooks](https://pre-commit.com/)
 - [black; документацию можно найти далее](https://pypi.org/project/black/)
