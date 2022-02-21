@@ -295,3 +295,4 @@ cython_debug/
 .idea
 .env
 *.json
+selenium_drivers/
