@@ -1,8 +1,10 @@
+from urllib import parse
+
 from scrapy.crawler import CrawlerProcess
 from scrapy.settings import Settings
 
-from jobparser import settings
-from jobparser.spiders.hh import HhSpider
+from otparser import settings
+from otparser.spiders.online_trade import OnlineTradeSpider
 
 # from jobparser.spiders.sj import SuperJobSpider
 
@@ -11,10 +13,9 @@ if __name__ == "__main__":
     crawler_settings.setmodule(settings)
 
     # TODO: customize it
-    spider_hh_init_kwargs = {"query_text": "python"}
-    spider_sj_init_kwargs = {}
+    search = "материнская плата asus"
+    search = parse.quote_plus(search.encode("cp1251"))
 
     process = CrawlerProcess(settings=crawler_settings)
-    process.crawl(HhSpider, **spider_hh_init_kwargs)
-    # process.crawl(SuperJobSpider, **spider_sj_init_kwargs)
+    process.crawl(OnlineTradeSpider, query=search)
     process.start()

@@ -1,4 +1,4 @@
-# Scrapy settings for jobparser project
+# Scrapy settings for otparser project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,32 +7,27 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "jobparser"
+BOT_NAME = "otparser"
 
-SPIDER_MODULES = [
-    "jobparser.spiders",
-    # 'jobparser.spiders1'
-]
-NEWSPIDER_MODULE = "jobparser.spiders"
+SPIDER_MODULES = ["otparser.spiders"]
+NEWSPIDER_MODULE = "otparser.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = (
-    "Mozilla/5.0 (X11; Linux x86_64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/98.0.4758.80 Safari/537.36"
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"
 )
-
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 16
+CONCURRENT_REQUESTS = 8
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 0.2
+DOWNLOAD_DELAY = 1.25
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
@@ -44,21 +39,30 @@ COOKIES_ENABLED = True
 # TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-# DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-# }
+DEFAULT_REQUEST_HEADERS = {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-US,en;q=0.9,ru;q=0.8",
+    "Content-Type": "text/html; charset=windows-1251",
+}
+
+IMAGES_STORE = "images"
+IMAGES_THUMBS = {
+    "ultra_big": (200, 5),
+    "small": (5, 5),
+    "random": (42, 41),
+}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    'jobparser.middlewares.JobparserSpiderMiddleware': 543,
+#    'otparser.middlewares.OtparserSpiderMiddleware': 543,
 # }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    'jobparser.middlewares.JobparserDownloaderMiddleware': 543,
+#    'otparser.middlewares.OtparserDownloaderMiddleware': 543,
 # }
 
 # Enable or disable extensions
@@ -70,16 +74,17 @@ COOKIES_ENABLED = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    "jobparser.pipelines.JobParserPipeline": 300,
+    "otparser.pipelines.OtparserImagesPipeline": 299,
+    "otparser.pipelines.OtparserPipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-AUTOTHROTTLE_START_DELAY = 0.3
+AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
-AUTOTHROTTLE_MAX_DELAY = 1
+AUTOTHROTTLE_MAX_DELAY = 5.5
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
 AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
@@ -93,7 +98,3 @@ AUTOTHROTTLE_DEBUG = True
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-LOG_ENABLED = True
-LOG_LEVEL = "DEBUG"  # INFO ERROR EXCEPTION
-LOG_FILE = "log.txt"
